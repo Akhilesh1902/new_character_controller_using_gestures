@@ -1,0 +1,214 @@
+@import url("http://fonts.cdnfonts.com/css/lexend-deca");
+* {
+  margin: 0%;
+  padding: 0%;
+  color: #99e6fa;
+  font-family: "Lexend Deca", sans-serif;
+}
+.img {
+  margin-top: 1rem;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  display: flex;
+  width: 100vh;
+  flex-direction: row;
+}
+.social a {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+.img img {
+  height: 65px;
+  margin-right: auto;
+  /* color: ; */
+}
+.page-container {
+  display: grid;
+  height: 100vh;
+  padding-left: 0%;
+  padding-right: 0%;
+  grid-template-columns: 60% 40%;
+  margin: auto;
+}
+.content {
+  background-color: #081518;
+  /* padding: 0 10em; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 12em;
+}
+.image {
+  background: url("./img/landing1.jpg");
+  background-position: center;
+  background-size: 82%;
+}
+h3 {
+  font-size: 4.5em;
+}
+.text {
+  width: 66%;
+  margin-top: 1em;
+}
+.buttons {
+  margin-top: 3em;
+}
+.btn {
+  /* background-color: #081518; */
+  background-color: #99e6fa;
+  border-color: #99e6fa;
+  border-radius: 2px;
+  text-decoration: none;
+  width: 145px;
+  margin: 0 10px;
+  height: 38px;
+  /* color: #99e6fa; */
+  color: #081518;
+  font-size: 0.9em;
+  font-weight: 200;
+  transition: all 0.4s ease;
+}
+.btn:hover {
+  cursor: pointer;
+  /* background-color: #99e6fa; */
+  background-color: #31f388;
+  color: #081518;
+  /* box-shadow: inset 145px 0 0 0 #99e6fa; */
+  box-shadow: inset 145px 0 0 0 #31f388;
+}
+.App {
+  background-color: #081518;
+  height: 100vh;
+  /* display: flex; */
+}
+
+.app_container {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.videoContainer {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  right: 0;
+  bottom: 0;
+}
+
+.App-header {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  /* height : calc(100vh - 48px); */
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.App-header video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.App-header canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.App-header img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+}
+
+.backArrow {
+  border-color: #99e6fa;
+  border-radius: 2px;
+  text-decoration: none;
+  width: 145px;
+  margin: 0 10px;
+  height: 38px;
+  color: #99e6fa;
+  font-size: 2em;
+  font-weight: 200;
+  position: absolute;
+}
+.CanvasContainer {
+  height: 100%;
+}
+.theejs_wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.theejs_wrapper webgl {
+  height: 100%;
+}
+
+.instruction {
+  background: #081518;
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  top: 80px;
+  margin: 8px;
+  padding: 8px;
+  border: 2px solid white;
+  border-radius: 8px;
+}
+.instruction h1 {
+  font-size: 21px;
+  margin-bottom: 12px;
+}
+.instruction ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.instruction li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.instruction img {
+  width: 32px;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  padding: 1em 2em;
+  background: #ffffffe7;
+  color: rgb(20, 20, 20);
+}
+
+.header a {
+  color: rgb(20, 20, 20) !important;
+}
+
+/* .btn {
+  padding: 0.5em 1em;
+} */
+
+.background_wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background-color: #081518;
+}
+
+.btn-primary {
+}
+.btn-secondary {
+  background: #18283b;
+  outline: none;
+  border: none;
+  color: white;
+}
