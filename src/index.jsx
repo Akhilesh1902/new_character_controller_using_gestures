@@ -5,6 +5,10 @@ import App from "./App";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GestureWrapper from "./GestureWrapper";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import PrivateRoute from "./PrivateRoute";
+import SignRecognization from "./Components/SignRecognization";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,8 +20,28 @@ root.render(
         element={<App />}
       />
       <Route
-        path="/gesture"
+        path="/signin"
+        element={<SignIn />}
+      />
+      <Route
+        path="/signup"
+        element={<SignUp />}
+      />
+      <Route
+        path="/signlang"
+        element={<SignRecognization />}
+      />
+      <Route
+        path="/ges"
         element={<GestureWrapper />}
+      />
+      <Route
+        path="/gesture"
+        element={
+          <PrivateRoute>
+            <GestureWrapper />
+          </PrivateRoute>
+        }
       />
     </Routes>
   </BrowserRouter>

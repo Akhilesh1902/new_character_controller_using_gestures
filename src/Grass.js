@@ -1,6 +1,4 @@
 import * as THREE from "three";
-import alphamap from "./resources/blade_alpha.jpg";
-import defusemap from "./resources/blade_diffuse.jpg";
 import noise from "./resources/noise2.png";
 import vs from "./shaders/vertex.js";
 import fs from "./shaders/fragment.js";
@@ -24,7 +22,7 @@ export default function Grass(plane, scene) {
   const geometry = new THREE.PlaneGeometry(bladeWidth, bladeHeight, 8, 16);
   geometry.translate(0, bladeHeight / 2, 0);
   // Instanced mesh setup
-  const instanceCount = 50000 * 2;
+  const instanceCount = 50000 * 1;
   const instancedMesh = new THREE.InstancedMesh(geometry, null, instanceCount);
 
   // Dummy for transforms
@@ -49,9 +47,9 @@ export default function Grass(plane, scene) {
       // uDiffuseMap: { value: diffuseMap },
       alphaMap: { value: alphaMap },
       uNoiseTexture: { value: noiseTexture },
-      uWindScale: { value: 0.3 }, // 0.3 → 1.0
-      uWindSpeed: { value: 0.2 }, // 0.1 → 1.0
-      uWindStrength: { value: 0.15 }, // 0.1 → 0.3
+      uWindScale: { value: 0.2 }, // 0.3 → 1.0
+      uWindSpeed: { value: 0.1 }, // 0.1 → 1.0
+      uWindStrength: { value: 0.2 }, // 0.1 → 0.3
       time: { value: 0 },
       tipColor: {
         value: new THREE.Color("0xb3bf0b").convertSRGBToLinear(), // yellowish-green tip

@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div className="container-fluid page-container">
-        <div className="content">
+        <div className="app content">
           <div className="img">
             <img
               src={logo}
@@ -16,8 +16,16 @@ function App() {
             />
             <span>By Aries</span>
             <div>
-              <button className="btn btn-primary">Sign in</button>
-              <button className="btn btn-secondary">Sign up</button>
+              <a
+                href="/signin"
+                className="link-btn  btn btn-primary">
+                Sign in
+              </a>
+              <a
+                href="/signup"
+                className="link-btn  btn btn-secondary">
+                Sign up
+              </a>
             </div>
           </div>
           <div className="heading">

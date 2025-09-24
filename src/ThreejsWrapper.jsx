@@ -40,7 +40,7 @@ const ThreejsWrapper = () => {
       100
     );
     // camera.position.set(0, 6, 6);
-    camera.position.set(0, 2, 3);
+    camera.position.set(0, 1, 2);
 
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
@@ -78,31 +78,7 @@ const ThreejsWrapper = () => {
     rendererRef.current = renderer;
 
     const postProcessor = new MultiEffectPostProcessor(renderer, scene, camera);
-    // postProcessor.enableEffect("sepia");
 
-    // // Initialize dat.GUI
-    // console.log(dat);
-    // const gui = new dat.GUI();
-
-    // const settings = {
-    //   effect: "none", // options: none, grayscale, sepia, invert, bloom, filmGrain
-    //   bloomStrength: 1.5,
-    //   bloomRadius: 0.4,
-    //   bloomThreshold: 0.85,
-    // };
-
-    // gui
-    //   .add(settings, "effect", [
-    //     "none",
-    //     "grayscale",
-    //     "sepia",
-    //     "invert",
-    //     "bloom",
-    //     "filmGrain",
-    //   ])
-    //   .onChange((val) => {
-    //     postProcessor.enableEffect(val === "none" ? null : val);
-    //   });
     /* --- Resize Handling --- */
     const handleResize = () => {
       sizes.width = window.innerWidth;
@@ -123,9 +99,9 @@ const ThreejsWrapper = () => {
     gltfLoader.setDRACOLoader(dracoLoader);
 
     gltfLoader.load(
-      "cop.glb",
+      "woman_draco.glb",
       (gltf) => {
-        gltf.scene.scale.set(0.5, 0.5, 0.5);
+        gltf.scene.scale.set(0.7, 0.7, 0.7);
         scene.add(gltf.scene);
 
         /* mixer + clip map */
@@ -134,21 +110,15 @@ const ThreejsWrapper = () => {
         gltf.animations.forEach((clip) =>
           animMap.set(clip.name, mixer.clipAction(clip))
         );
-        console.log(
-          gltf.scene,
-          mixer,
-          animMap,
-          controls,
-          camera,
-          "Breathing Idle"
-        );
+        console.log(animMap);
+        console.log(gltf.scene, mixer, animMap, controls, camera, "idle_girl");
         characterControls._init(
           gltf.scene,
           mixer,
           animMap,
           controls,
           camera,
-          "Breathing Idle"
+          "idle_girl"
         );
       },
       undefined,

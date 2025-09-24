@@ -1,5 +1,5 @@
 const BCCI = {
-  _enabled: false,
+  _enabled: true,
   _keys: {
     forward: false,
     backward: false,
@@ -7,10 +7,10 @@ const BCCI = {
     right: false,
     space: false,
     shift: false,
+    punch: false, // punch key state
+    kick: false, // kick key state
+    wave: false, // wave key state added
   },
-
-  //   document.addEventListener('keydown', (e) => this._onKeyDown(e), false);
-  //   document.addEventListener('keyup', (e) => this._onKeyUp(e), false);
 
   _onKeyDown(event) {
     switch (event.keyCode) {
@@ -26,12 +26,21 @@ const BCCI = {
       case 68: // d
         this._keys.right = true;
         break;
-      // case 32: // SPACE
-      //   this._keys.space = true;
-      //   break;
-      // case 16: // SHIFT
-      //   this._keys.shift = true;
-      //   break;
+      case 32: // SPACE
+        this._keys.space = true;
+        break;
+      case 16: // SHIFT
+        this._keys.shift = true;
+        break;
+      case 81: // Q
+        this._keys.punch = true; // punch key pressed
+        break;
+      case 69: // E
+        this._keys.kick = true; // kick key pressed
+        break;
+      case 82: // R
+        this._keys.wave = true; // wave key pressed
+        break;
       default:
         break;
     }
@@ -43,7 +52,19 @@ const BCCI = {
     this._keys.left = val.left;
     this._keys.right = val.right;
   },
-
+  _reset() {
+    this._keys = {
+      forward: false,
+      backward: false,
+      left: false,
+      right: false,
+      space: false,
+      shift: false,
+      punch: false, // punch key state
+      kick: false, // kick key state
+      wave: false, // wave key state added
+    };
+  },
   _onKeyUp(event) {
     switch (event.keyCode) {
       case 87: // w
@@ -58,12 +79,21 @@ const BCCI = {
       case 68: // d
         this._keys.right = false;
         break;
-      // case 32: // SPACE
-      //   this._keys.space = false;
-      //   break;
-      // case 16: // SHIFT
-      //   this._keys.shift = false;
-      //   break;
+      case 32: // SPACE
+        this._keys.space = false;
+        break;
+      case 16: // SHIFT
+        this._keys.shift = false;
+        break;
+      case 81: // Q
+        this._keys.punch = false; // punch key released
+        break;
+      case 69: // E
+        this._keys.kick = false; // kick key released
+        break;
+      case 82: // R
+        this._keys.wave = false; // wave key released
+        break;
       default:
         break;
     }

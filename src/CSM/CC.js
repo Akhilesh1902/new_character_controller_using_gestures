@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import BCCI from './BCCI';
+import BCCI from "./BCCI";
 
 const CC = {
   // state
@@ -10,14 +10,14 @@ const CC = {
 
   _model: null,
   _mixer: null,
-  _animMap: null,
+  // _animMap: null,
 
   // temporary data
   walkDirection: new THREE.Vector3(),
   rotateAngle: new THREE.Vector3(0, 1, 0),
   rotateQuarternion: new THREE.Quaternion(),
   cameraTarget: new THREE.Vector3(),
-
+  isJumping: false,
   // consotants
   fadeDuration: 0.2,
   runVelocity: 5,
@@ -44,14 +44,29 @@ const CC = {
   },
   update(delta, keyPressed) {
     const directionPressed = Object.values(BCCI._keys).some((v) => v === true);
+    const pressedKeys = Object.entries(BCCI._keys)
+      .filter(([key, isPressed]) => isPressed)
+      .map(([key]) => key);
+    // console.log(pressedKeys);
+    // console.log(directionPressed);
+    var play = "";
 
-    var play = '';
-    if (directionPressed && this._toggleRun) {
-      play = 'Pistol Run';
+    if (pressedKeys[0] === "wave") {
+      play = "wave_girl";
+    } else if (pressedKeys[0] === "kick") {
+      play = "back_kick_girl";
+    } else if (pressedKeys[0] === "punch") {
+      play = "hook_punch";
+    } else if (pressedKeys[0] === "shift") {
+      play = "dance";
+    } else if (pressedKeys[0] === "space") {
+      play = "jump_girl";
+    } else if (directionPressed && this._toggleRun) {
+      play = "running";
     } else if (directionPressed) {
-      play = 'walking';
+      play = "running";
     } else {
-      play = 'Breathing Idle';
+      play = "idle_girl";
     }
 
     if (!this.curAction) {
@@ -59,16 +74,52 @@ const CC = {
       return;
     }
     if (this.curAction !== play) {
+      if (
+        this.isJumping &&
+        (this.curAction === "jump_girl" ||
+          this.curAction === "dance" ||
+          this.curAction === "hook_punch" ||
+          this.curAction === "wave_girl" ||
+          this.curAction === "back_kick_girl") &&
+        play !== this.curAction
+      ) {
+        return; // lock active, do nothing
+      }
+
       const toPlay = this._animMap.get(play);
       const current = this._animMap.get(this.curAction);
-      current.fadeOut(this.fadeDuration);
-      toPlay.reset().fadeIn(this.fadeDuration).play();
 
-      this.curAction = play;
+      if (
+        play === "jump_girl" ||
+        play === "dance" ||
+        play === "hook_punch" ||
+        play === "wave_girl" ||
+        play === "back_kick_girl"
+      ) {
+        if (!this.isJumping) {
+          // <-- Add guard to avoid restarting animation repeatedly
+          this.isJumping = true;
+          toPlay.reset().setLoop(THREE.LoopOnce, 1).play();
+
+          const onFinish = (e) => {
+            if (e.action === toPlay) {
+              this.isJumping = false;
+              this.curAction = play;
+              this._mixer.removeEventListener("finished", onFinish);
+            }
+          };
+          this._mixer.addEventListener("finished", onFinish);
+        }
+      } else {
+        current.fadeOut(this.fadeDuration);
+        toPlay.reset().fadeIn(this.fadeDuration).play();
+        this.curAction = play;
+      }
     }
+
     this._mixer?.update(delta);
 
-    if (this.curAction === 'Pistol Run' || this.curAction === 'walking') {
+    if (this.curAction === "running" || this.curAction === "walking") {
       // calculate towards camera direction
       var angleYCameraDirection = Math.atan2(
         this.camera.position.x - this._model.position.x,
@@ -82,7 +133,8 @@ const CC = {
         this.rotateAngle,
         angleYCameraDirection + directionOffset
       );
-      this._model.quaternion.rotateTowards(this.rotateQuarternion, 0.2);
+      // this._model.quaternion.rotateTowards(this.rotateQuarternion, 0.2);
+      this._model.quaternion.rotateTowards(this.rotateQuarternion, 0.5);
 
       // calculate direction
       this.camera.getWorldDirection(this.walkDirection);
@@ -92,7 +144,7 @@ const CC = {
 
       // run/walk velocity
       const velocity =
-        this.curAction === 'Pistol Run' ? this.runVelocity : this.walkVelocity;
+        this.curAction === "running" ? this.runVelocity : this.walkVelocity;
       // move _model & camera
       const moveX = -this.walkDirection.x * velocity * delta;
       const moveZ = -this.walkDirection.z * velocity * delta;
@@ -108,7 +160,7 @@ const CC = {
 
     // update camera target
     this.cameraTarget.x = this._model.position.x;
-    this.cameraTarget.y = this._model.position.y + 1;
+    this.cameraTarget.y = this._model.position.y + 0;
     this.cameraTarget.z = this._model.position.z;
     this._OC.target = this.cameraTarget;
   },
