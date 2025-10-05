@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -10,6 +10,7 @@ import Grass from "./Grass";
 import { RGBELoader } from "three/examples/jsm/Addons.js";
 import Butterflies from "./Buttterfly";
 import MultiEffectPostProcessor from "./Postprocessing";
+import { MyContext } from "./GestureWrapper";
 // import * as dat from "dat.gui";
 
 const ThreejsWrapper = () => {
@@ -17,6 +18,7 @@ const ThreejsWrapper = () => {
   const rendererRef = useRef(null); // let us dispose on unmount
   const clock = useRef(new THREE.Clock());
   const frameId = useRef(null); // store rAF id for cleanup
+  const [loadingModel, setLoadingModel] = useState(false);
 
   /* ─────────────────────────── EFFECT ─────────────────────────── */
   useEffect(() => {
@@ -93,6 +95,7 @@ const ThreejsWrapper = () => {
     window.addEventListener("resize", handleResize);
 
     /* --- Model & Animations --- */
+    setLoadingModel(true);
     const gltfLoader = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("/draco/");
@@ -120,6 +123,7 @@ const ThreejsWrapper = () => {
           camera,
           "idle_girl"
         );
+        setLoadingModel(false);
       },
       undefined,
       (err) => console.error("GLB load error ▶", err)
@@ -168,6 +172,11 @@ const ThreejsWrapper = () => {
 
   return (
     <div className="threejs_wrapper">
+      {loadingModel && (
+        <div className="loading_model">
+          <p>Loading 3D Model...</p>
+        </div>
+      )}
       <canvas
         ref={canvasRef}
         className="webgl"

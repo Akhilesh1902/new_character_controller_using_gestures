@@ -15,7 +15,7 @@ function App() {
               alt=""
             />
             <span>By Aries</span>
-            <div>
+            <div style={{ display: "none" }}>
               <a
                 href="/signin"
                 className="link-btn  btn btn-primary">
@@ -41,7 +41,7 @@ function App() {
           <div className="buttons">
             <Link
               style={{ padding: "10px 34px" }}
-              to="/gesture"
+              to="/ges"
               className="btn btn-primary">
               Try Out!
             </Link>

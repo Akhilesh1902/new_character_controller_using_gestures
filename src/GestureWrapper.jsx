@@ -9,14 +9,14 @@ import Accordion from "./Accordian";
 export const MyContext = createContext(null);
 
 function GestureWrapper() {
-  const [hpModelLoaded, sethpModelLoaded] = useState(true);
+  const [modelLoading, setmodelLoading] = useState(true);
 
   return (
     <div>
-      <MyContext.Provider value={{ hpModelLoaded, sethpModelLoaded }}>
+      <MyContext.Provider value={{ modelLoading, setmodelLoading }}>
         <div className="app_container">
           <header className="header">
-            <Link to="/">home</Link>
+            <Link to="/">Home</Link>
           </header>
 
           <ToastContainer />
@@ -57,7 +57,7 @@ function GestureWrapper() {
             </Accordion>
           </div>
           <div className="CanvasContainer">
-            {hpModelLoaded ? (
+            {modelLoading ? (
               <ThreejsWrapper />
             ) : (
               <div className="background_wrapper">
